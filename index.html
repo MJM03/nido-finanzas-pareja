@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#182f2b" />
+  <title>Nido | Finanzas en pareja</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">N</span><div><strong>Nido</strong><small>Finanzas en pareja</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-view="inicio"><span>⌂</span> Inicio</button>
+        <button class="nav-item" data-view="presupuesto"><span>◫</span> Presupuesto</button>
+        <button class="nav-item" data-view="mercado"><span>✓</span> Mercado</button>
+        <button class="nav-item" data-view="movimientos"><span>↕</span> Movimientos</button>
+      </nav>
+      <div class="couple-card"><div class="avatars"><span>AM</span><span>JL</span></div><div><strong>Ana &amp; Juan</strong><small>Construyendo juntos</small></div></div>
+    </aside>
+
+    <main>
+      <header><button id="menuBtn" class="icon-btn">☰</button><div><p class="eyebrow" id="dateLabel"></p><h1 id="pageTitle">Buenos días 👋</h1></div><button class="month-pill">Este mes <span>⌄</span></button></header>
+
+      <section class="view active" id="inicio">
+        <div class="hero-card">
+          <div><p>Dinero disponible</p><h2 id="availableValue">$0</h2><span id="availableHint">Después de gastos y ahorro</span></div>
+          <div class="hero-side"><span class="status-dot"></span><small>Estado del mes</small><strong id="monthStatus">En equilibrio</strong></div>
+        </div>
+        <div class="metrics">
+          <article class="metric"><div class="metric-icon income">↗</div><div><small>Ingresos</small><strong id="incomeMetric">$0</strong><span>Este mes</span></div></article>
+          <article class="metric"><div class="metric-icon expense">↘</div><div><small>Gastos</small><strong id="expenseMetric">$0</strong><span id="expensePercent">0% de ingresos</span></div></article>
+          <article class="metric"><div class="metric-icon saving">◇</div><div><small>Ahorro</small><strong id="savingMetric">$0</strong><span id="savingPercent">Meta mensual</span></div></article>
+        </div>
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-title"><div><p class="eyebrow">PLAN DEL MES</p><h3>Distribución recomendada</h3></div><button class="link-btn" data-go="presupuesto">Ajustar</button></div>
+            <div id="allocationBars" class="allocation-bars"></div>
+            <p class="tip" id="smartTip">💡 Completa tus ingresos para recibir una recomendación.</p>
+          </article>
+          <article class="panel">
+            <div class="panel-title"><div><p class="eyebrow">MERCADO</p><h3>Lista compartida</h3></div><button class="link-btn" data-go="mercado">Ver lista</button></div>
+            <div class="market-progress"><div class="ring" id="marketRing"><span id="marketPercent">0%</span></div><div><strong id="marketCount">0 de 0 comprados</strong><small id="marketCost">Estimado: $0</small></div></div>
+            <div id="marketPreview" class="preview-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="presupuesto">
+        <div class="section-heading"><div><p class="eyebrow">PLANIFICACIÓN</p><h2>Presupuesto mensual</h2><p>Registra sus ingresos y adapta la distribución a su realidad.</p></div><button class="primary-btn" id="saveBudget">Guardar presupuesto</button></div>
+        <div class="budget-layout">
+          <article class="panel form-panel"><h3>Ingresos del hogar</h3><label>Ingreso de la persona 1 <input type="number" id="income1" min="0" step="50" /></label><label>Ingreso de la persona 2 <input type="number" id="income2" min="0" step="50" /></label><label>Moneda <select id="currency"><option value="$">Dólar ($)</option><option value="S/">Sol (S/)</option><option value="€">Euro (€)</option><option value="COP $">Peso colombiano (COP)</option></select></label><div class="total-box"><span>Ingreso mensual conjunto</span><strong id="jointIncome">$0</strong></div></article>
+          <article class="panel"><div class="panel-title"><div><p class="eyebrow">RECOMENDACIÓN</p><h3>Tu dinero, con propósito</h3></div></div><div id="budgetRows"></div><p class="tip">Estas cifras son una guía. Prioriza vivienda, alimentos, servicios y deudas antes de gastos opcionales.</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="mercado">
+        <div class="section-heading"><div><p class="eyebrow">LISTA COMPARTIDA</p><h2>Mercado del hogar</h2><p>Lo que tienen, lo que falta y cuánto costará.</p></div><button class="primary-btn" id="clearBought">Limpiar comprados</button></div>
+        <form class="add-form panel" id="marketForm"><input id="itemName" placeholder="¿Qué hace falta?" required /><input id="itemQty" placeholder="Cantidad" value="1" /><input id="itemPrice" type="number" min="0" step="0.01" placeholder="Precio estimado" /><select id="itemCategory"><option>Alimentos</option><option>Limpieza</option><option>Cuidado personal</option><option>Hogar</option><option>Otro</option></select><button class="primary-btn" type="submit">+ Añadir</button></form>
+        <div class="market-layout"><article class="panel"><div class="filter-row"><button class="filter active" data-filter="all">Todo</button><button class="filter" data-filter="pending">Falta</button><button class="filter" data-filter="bought">Comprado</button></div><div id="marketList" class="full-list"></div></article><article class="panel receipt"><p class="eyebrow">RESUMEN</p><h3>Próxima compra</h3><div><span>Productos pendientes</span><strong id="pendingItems">0</strong></div><div><span>Total estimado</span><strong id="pendingTotal">$0</strong></div><div><span>Comprado</span><strong id="boughtTotal">$0</strong></div><p class="tip">💡 Marca cada producto mientras recorres el mercado.</p></article></div>
+      </section>
+
+      <section class="view" id="movimientos">
+        <div class="section-heading"><div><p class="eyebrow">CONTROL</p><h2>Movimientos</h2><p>Registra ingresos y gastos de ambos.</p></div></div>
+        <form class="add-form panel" id="transactionForm"><input id="txDescription" placeholder="Descripción" required /><input id="txAmount" type="number" min="0.01" step="0.01" placeholder="Monto" required /><select id="txType"><option value="expense">Gasto</option><option value="income">Ingreso extra</option></select><select id="txCategory"><option>Vivienda</option><option>Mercado</option><option>Servicios</option><option>Transporte</option><option>Ocio</option><option>Salud</option><option>Otro</option></select><button class="primary-btn" type="submit">Registrar</button></form>
+        <article class="panel"><div id="transactionList" class="full-list"></div></article>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
